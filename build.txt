@@ -1,0 +1,1 @@
+g++ --std=c++11 -o gltetris main.cpp -lSDL2
