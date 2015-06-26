@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SDL2/SDL.h>
+#include "util.h"
 int main(int argc, char *argv[]) {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window *mainWindow = SDL_CreateWindow("Hello World", 100, 100, 640,480, SDL_WINDOW_SHOWN);
@@ -34,9 +35,9 @@ int main(int argc, char *argv[]) {
         SDL_Delay(1000);
     }
 
-    SDL_DestroyTexture(texture);
-    SDL_DestroyRenderer(ren);
-    SDL_DestroyWindow(mainWindow);
+    SDL_cleanup(texture);
+    SDL_cleanup(ren);
+    SDL_cleanup(mainWindow);
     SDL_Quit();
     return 0;
 }
