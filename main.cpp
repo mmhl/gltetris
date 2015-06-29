@@ -1,42 +1,29 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "util.h"
+
+
 int main(int argc, char *argv[]) {
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_Window *mainWindow = SDL_CreateWindow("Hello World", 100, 100, 640,480, SDL_WINDOW_SHOWN);
-    if(mainWindow == nullptr) {
-        std::cerr << "Error while creating SDL window"  << std::endl;
-        return 1;
+    SDL_Context sdl;
+    SDL_Window *mainWindow = sdl.createWindow(100,100,1024,768, "Hello SDL");
+    SDL_Renderer *renderer = sdl.createRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if(renderer == nullptr)
+    	return -1;
+    SDL_Texture *texture = sdl.loadTexture("assets/marbles.bmp", renderer);
+    if(texture == nullptr) {
+    	return -1;
     }
-
-    SDL_Renderer *ren = SDL_CreateRenderer(mainWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if(ren == nullptr) {
-        std::cerr << "Failed to create sdl renederer" << std::endl;
-        SDL_DestroyWindow(mainWindow);
-        SDL_Quit();
-        return -1;
-    }
-
-    std::string helloWorldResource = "assets/hello.bmp";
-    SDL_Surface *helloBmp = SDL_LoadBMP(helloWorldResource.c_str());
-    if(helloBmp == nullptr) {
-        std::cerr << "Unable to load BMP " << helloWorldResource << std::endl;
-        SDL_Quit();
-        return -1;
-    }
-
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(ren, helloBmp);
-    SDL_FreeSurface(helloBmp);
+    sdl.renderTexture(renderer, texture, 10, 60, 10);
 
     for(int i = 0; i < 3; ++i) {
-        SDL_RenderClear(ren);
-        SDL_RenderCopy(ren, texture, nullptr, nullptr);
-        SDL_RenderPresent(ren);
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+        SDL_RenderPresent(renderer);
         SDL_Delay(1000);
     }
 
     SDL_cleanup(texture);
-    SDL_cleanup(ren);
+    SDL_cleanup(renderer);
     SDL_cleanup(mainWindow);
     SDL_Quit();
     return 0;
