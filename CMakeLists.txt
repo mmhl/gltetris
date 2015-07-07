@@ -3,10 +3,10 @@ project(gltetris)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp util.h)
+set(SOURCE_FILES main.cpp)
 
 set(BIN_DIR ${gltetris_SOURCE_DIR}/bin)
-add_executable(gltetris ${SOURCE_FILES})
+add_executable(gltetris ${SOURCE_FILES} SDLContext.cpp SDLContext.h)
 
 
 # Bump up warning levels appropriately for clang, gcc & msvc
@@ -23,6 +23,11 @@ elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 	endif()
 endif()
+
+
+
+#Change output directory
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${gltetris_SOURCE_DIR})
 
 # Look up SDL2 and add the include directory to our include path
 include(FindPkgConfig)
