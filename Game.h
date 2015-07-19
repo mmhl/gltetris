@@ -10,20 +10,23 @@
 
 class Game {
 public:
-    Game() : running(false) {
+    Game() : m_running(false), m_sdlWindow(nullptr), m_sdlRenderer(nullptr) {
 
     }
 
-    void init(const std::string &title);
+    bool init(const std::string &title);
     void mainLoop();
     void cleanup();
+    void render();
 
     Game& Game(const Game& other) = delete;
     Game& Game(Game& other) = delete;
     Game& operator=(Game& other) = delete;
 private:
-    bool running;
-    SDLContext sdlContext;
+    bool m_running;
+    SDLContext m_sdlContext;
+    SDL_Window *m_sdlWindow;
+    SDL_Renderer *m_sdlRenderer;
 };
 
 

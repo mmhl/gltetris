@@ -15,7 +15,7 @@ public:
         SDL_Init(SDL_INIT_EVERYTHING);
     }
     ~SDLContext() {
-        std::cout << "dtor sdlContext" << std::endl;
+        std::cout << "dtor m_sdlContext" << std::endl;
         SDL_Quit();
     }
 
