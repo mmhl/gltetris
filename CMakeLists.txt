@@ -6,7 +6,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(SOURCE_FILES main.cpp)
 
 set(BIN_DIR ${gltetris_SOURCE_DIR}/bin)
-add_executable(gltetris ${SOURCE_FILES} SDLContext.cpp SDLContext.h)
+add_executable(gltetris ${SOURCE_FILES} SDLContext.cpp SDLContext.h Game.cpp Game.h)
 
 
 # Bump up warning levels appropriately for clang, gcc & msvc
